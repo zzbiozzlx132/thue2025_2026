@@ -4,386 +4,782 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Tính Thuế TNCN Việt Nam</title>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet">
 <style>
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-:root{
-  --acc:#c0392b;--acc-p:#fdf2f1;
-  --text:#111;--text2:#6b7280;--text3:#9ca3af;
-  --border:#e5e7eb;--border2:#d1d5db;
-  --bg:#f9fafb;--card:#fff;
-  --dark:#111827;
-}
-body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;font-size:13px;line-height:1.5;-webkit-font-smoothing:antialiased}
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    :root{
+      --acc:#0284c8;
+      --acc-p:#f0f9ff;
+      --text:#0f172a;
+      --text2:#64748b;
+      --text3:#94a3b8;
+      --border:#e2e8f0;
+      --border2:#cbd5e1;
+      --bg:#f8fafc;
+      --card:#ffffff;
+    }
+    body{
+      font-family:'Inter',sans-serif;
+      background:var(--bg);
+      color:var(--text);
+      min-height:100vh;
+      font-size:13.5px;
+      line-height:1.5;
+      -webkit-font-smoothing:antialiased
+    }
 
-header{background:var(--dark);color:#fff;padding:1.2rem 1rem 1rem;text-align:center}
-header h1{font-size:1rem;font-weight:600;letter-spacing:-.2px}
-header p{font-size:.7rem;color:#9ca3af;margin-top:.2rem}
-.badges{display:inline-flex;gap:.3rem;margin-top:.5rem;flex-wrap:wrap;justify-content:center}
-.badges span{border:1px solid #374151;border-radius:4px;padding:.1rem .5rem;font-size:.62rem;color:#9ca3af;font-weight:500}
+    /* HEADER – Vercel style: clean white, subtle shadow */
+    header{
+      background:#fff;
+      border-bottom:1px solid var(--border);
+      box-shadow:0 1px 3px rgba(15,23,42,.05);
+      padding:1rem 1rem 1.1rem;
+      text-align:center;
+      position:sticky;
+      top:0;
+      z-index:10
+    }
+    header h1{
+      font-size:1.35rem;
+      font-weight:600;
+      letter-spacing:-0.4px;
+      color:var(--text)
+    }
+    header p{
+      font-size:0.8rem;
+      color:var(--text2);
+      margin-top:0.15rem
+    }
+    .badges{
+      display:inline-flex;
+      gap:0.35rem;
+      margin-top:0.65rem;
+      flex-wrap:wrap;
+      justify-content:center
+    }
+    .badges span{
+      border:1px solid var(--border);
+      background:var(--card);
+      border-radius:9999px;
+      padding:0.15rem 0.75rem;
+      font-size:0.65rem;
+      font-weight:600;
+      color:var(--text2)
+    }
 
-main{max-width:760px;margin:0 auto;padding:.8rem .8rem 3rem}
+    main{
+      max-width:720px;
+      margin:0 auto;
+      padding:1.25rem 1rem 4rem
+    }
 
-.card{background:var(--card);border-radius:8px;padding:.85rem 1rem;margin-bottom:.6rem;border:1px solid var(--border)}
-.card-title{font-size:.6rem;font-weight:700;text-transform:uppercase;letter-spacing:1.2px;color:var(--text2);margin-bottom:.7rem;display:flex;align-items:center;gap:.5rem}
-.card-title::after{content:'';flex:1;height:1px;background:var(--border)}
+    /* CARD – Vercel clean cards */
+    .card{
+      background:var(--card);
+      border-radius:20px;
+      padding:1.1rem 1.25rem;
+      margin-bottom:0.85rem;
+      border:1px solid var(--border);
+      box-shadow:0 10px 15px -3px rgb(15 23 42 / 0.05),
+                 0 4px 6px -4px rgb(15 23 42 / 0.05);
+      transition:all .2s cubic-bezier(0.4,0,0.2,1)
+    }
+    .card:hover{box-shadow:0 20px 25px -5px rgb(15 23 42 / 0.08)}
+    .card-title{
+      font-size:0.65rem;
+      font-weight:700;
+      text-transform:uppercase;
+      letter-spacing:1px;
+      color:var(--text2);
+      margin-bottom:0.65rem;
+      display:flex;
+      align-items:center;
+      gap:0.5rem
+    }
+    .card-title::after{
+      content:'';
+      flex:1;
+      height:1px;
+      background:var(--border)
+    }
 
-/* YEAR */
-.year-selector{display:grid;grid-template-columns:1fr 1fr;gap:.5rem}
-.year-btn{border:1px solid var(--border);border-radius:6px;padding:.6rem .75rem;text-align:center;cursor:pointer;transition:all .12s;background:var(--card);position:relative;user-select:none}
-.year-btn:hover{border-color:var(--border2);background:var(--bg)}
-.year-btn.active{border-color:var(--acc);background:var(--acc-p)}
-.year-btn.active::after{content:'✓';position:absolute;top:.35rem;right:.55rem;color:var(--acc);font-weight:700;font-size:.7rem}
-.yr{font-size:1.15rem;font-weight:700;color:var(--text)}
-.yr-sub{font-size:.63rem;color:var(--text2);margin-top:.12rem}
-.year-btn.active .yr{color:var(--acc)}
+    /* YEAR SELECTOR – compact + modern */
+    .year-selector{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:0.75rem
+    }
+    .year-btn{
+      border:1px solid var(--border);
+      border-radius:16px;
+      padding:0.85rem 1rem;
+      text-align:center;
+      cursor:pointer;
+      transition:all .2s cubic-bezier(0.4,0,0.2,1);
+      background:var(--card);
+      position:relative;
+      user-select:none
+    }
+    .year-btn:hover{
+      border-color:var(--border2);
+      transform:translateY(-1px);
+      box-shadow:0 10px 15px -3px rgb(2 132 200 / 0.1)
+    }
+    .year-btn.active{
+      border-color:var(--acc);
+      background:var(--acc-p);
+      color:var(--acc)
+    }
+    .year-btn.active::after{
+      content:'✓';
+      position:absolute;
+      top:0.45rem;
+      right:0.65rem;
+      color:var(--acc);
+      font-weight:700;
+      font-size:0.8rem
+    }
+    .yr{font-size:1.25rem;font-weight:700}
+    .yr-sub{font-size:0.67rem;color:var(--text2);margin-top:0.15rem;line-height:1.3}
 
-/* INCOME */
-.inc-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:.5rem}
-@media(max-width:560px){.inc-grid{grid-template-columns:1fr}}
-.inc-box{border:1px solid var(--border);border-radius:6px;padding:.65rem .8rem;background:var(--card);transition:border-color .12s}
-.inc-box:focus-within{border-color:var(--border2)}
-.inc-tag{font-size:.6rem;font-weight:600;text-transform:uppercase;letter-spacing:.7px;color:var(--text2);margin-bottom:.3rem;display:flex;align-items:center;gap:.3rem}
-.inc-dot{width:5px;height:5px;border-radius:50%;background:var(--text3);flex-shrink:0}
-.bh-box .inc-dot{background:#6366f1}
-.kpi-box .inc-dot{background:#f59e0b}
-.phu-box .inc-dot{background:#10b981}
-.total-row{display:flex;align-items:center;justify-content:space-between;border:1px solid var(--border);border-radius:6px;padding:.6rem .85rem;margin-top:.5rem;background:var(--bg)}
-.total-col{display:flex;flex-direction:column;gap:.15rem}
-.total-col:last-child{text-align:right}
-.total-lbl{font-size:.58rem;font-weight:600;text-transform:uppercase;letter-spacing:.7px;color:var(--text3)}
-.total-val{font-size:.9rem;font-weight:700;color:var(--text)}
-.total-val.acc{color:var(--acc)}
+    /* INCOME SECTION */
+    .inc-grid{
+      display:grid;
+      grid-template-columns:1fr 1fr 1fr;
+      gap:0.65rem
+    }
+    @media(max-width:560px){.inc-grid{grid-template-columns:1fr}}
+    .inc-box{
+      border:1px solid var(--border);
+      border-radius:16px;
+      padding:0.85rem 1rem;
+      background:var(--card);
+      transition:border-color .2s
+    }
+    .inc-box:focus-within{
+      border-color:var(--acc);
+      box-shadow:0 0 0 3px rgba(2,132,200,0.15)
+    }
+    .inc-tag{
+      font-size:0.62rem;
+      font-weight:600;
+      text-transform:uppercase;
+      letter-spacing:0.8px;
+      color:var(--text2);
+      margin-bottom:0.35rem;
+      display:flex;
+      align-items:center;
+      gap:0.35rem
+    }
+    .inc-dot{
+      width:5px;
+      height:5px;
+      border-radius:50%;
+      flex-shrink:0
+    }
+    .bh-box .inc-dot{background:#0ea5e9}
+    .kpi-box .inc-dot{background:#f59e0b}
+    .phu-box .inc-dot{background:#10b981}
 
-/* INPUTS */
-.money-wrap{position:relative}
-.sfx{position:absolute;right:.65rem;top:50%;transform:translateY(-50%);font-size:.62rem;color:var(--text3);pointer-events:none}
-.money-input{border:1px solid var(--border);border-radius:5px;padding:.45rem 2.5rem .45rem .7rem;font-family:inherit;font-size:.82rem;color:var(--text);background:var(--card);transition:border-color .12s;width:100%;outline:none}
-.money-input:focus{border-color:var(--border2)}
-.inc-box .money-input{border:none;padding:0;font-size:.92rem;font-weight:600;background:transparent;border-radius:0}
-.inc-box .money-input::placeholder{font-weight:400;color:var(--border2)}
-.inc-box .sfx{right:0}
-.pd{font-size:.6rem;color:var(--text3);min-height:.8rem;margin-top:.08rem}
-.hint{font-size:.62rem;color:var(--text3);line-height:1.5;margin-top:.15rem}
+    .total-row{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      border:1px solid var(--border);
+      border-radius:16px;
+      padding:0.75rem 1rem;
+      margin-top:0.75rem;
+      background:var(--bg)
+    }
+    .total-col{display:flex;flex-direction:column;gap:0.1rem}
+    .total-col:last-child{text-align:right}
+    .total-lbl{font-size:0.6rem;font-weight:600;text-transform:uppercase;letter-spacing:0.8px;color:var(--text3)}
+    .total-val{font-size:1rem;font-weight:700;color:var(--text)}
+    .total-val.acc{color:var(--acc)}
 
-/* INFO BOX */
-.info-box{border-left:2px solid var(--border2);padding:.5rem .75rem;font-size:.68rem;color:var(--text2);line-height:1.6;margin-bottom:.75rem;background:var(--bg);border-radius:0 5px 5px 0}
+    /* INPUTS */
+    .money-wrap{position:relative}
+    .sfx{
+      position:absolute;
+      right:1rem;
+      top:50%;
+      transform:translateY(-50%);
+      font-size:0.65rem;
+      color:var(--text3);
+      pointer-events:none
+    }
+    .money-input{
+      border:1px solid var(--border);
+      border-radius:12px;
+      padding:0.65rem 2.8rem 0.65rem 1rem;
+      font-family:inherit;
+      font-size:0.9rem;
+      font-weight:600;
+      color:var(--text);
+      background:var(--card);
+      transition:all .2s;
+      width:100%;
+      outline:none
+    }
+    .money-input:focus{
+      border-color:var(--acc);
+      box-shadow:0 0 0 3px rgba(2,132,200,0.15)
+    }
+    .inc-box .money-input{
+      border:none;
+      padding:0;
+      font-size:1.05rem;
+      background:transparent
+    }
+    .pd{
+      font-size:0.62rem;
+      color:var(--text3);
+      min-height:0.9rem;
+      margin-top:0.1rem
+    }
+    .hint{
+      font-size:0.65rem;
+      color:var(--text3);
+      line-height:1.4;
+      margin-top:0.2rem
+    }
 
-/* DEDUCTIONS */
-.ded-sec-lbl{font-size:.58rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--text3);margin:.85rem 0 .4rem;display:flex;align-items:center;gap:.4rem}
-.ded-sec-lbl::after{content:'';flex:1;height:1px;background:var(--border)}
-.check-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:.4rem}
-.check-card{border:1px solid var(--border);border-radius:6px;padding:.5rem .65rem;cursor:pointer;transition:all .12s;user-select:none;display:flex;align-items:flex-start;gap:.45rem;background:var(--card)}
-.check-card:hover{border-color:var(--border2);background:var(--bg)}
-.check-card.on{border-color:var(--acc);background:var(--acc-p)}
-.cb-box{width:14px;height:14px;min-width:14px;border:1px solid var(--border2);border-radius:3px;margin-top:1px;display:flex;align-items:center;justify-content:center;background:var(--card);font-size:9px;color:transparent;transition:all .12s}
-.check-card.on .cb-box{background:var(--acc);border-color:var(--acc);color:#fff}
-.cb-lbl{font-size:.73rem;font-weight:500;line-height:1.3;color:var(--text)}
-.cb-amt{font-size:.6rem;color:var(--text3);margin-top:.08rem}
-.check-card.on .cb-amt{color:var(--acc)}
-.sub-panel{margin-top:.45rem;border-radius:5px;padding:.5rem .7rem;font-size:.7rem;display:none;background:var(--bg);border:1px solid var(--border)}
-.sub-panel.open{display:block}
-.row-inline{display:flex;align-items:center;gap:.55rem;flex-wrap:wrap}
-.dep-hint{font-size:.65rem;color:var(--acc);font-weight:600}
-.small-num{border:1px solid var(--border);border-radius:5px;padding:.27rem .48rem;font-family:inherit;font-size:.78rem;width:56px;outline:none;color:var(--text);-moz-appearance:textfield;background:var(--card)}
-.small-num::-webkit-inner-spin-button{-webkit-appearance:none}
-.small-num:focus{border-color:var(--border2)}
-.bhxh-auto{border-left:2px solid #10b981;background:var(--bg);border-radius:0 5px 5px 0;padding:.4rem .7rem;font-size:.67rem;color:var(--text2);margin-top:.4rem;line-height:1.6;display:none}
-.bhxh-auto.show{display:block}
+    /* DEDUCTIONS */
+    .ded-sec-lbl{
+      font-size:0.62rem;
+      font-weight:700;
+      text-transform:uppercase;
+      letter-spacing:1px;
+      color:var(--text3);
+      margin:0.9rem 0 0.45rem;
+      display:flex;
+      align-items:center;
+      gap:0.45rem
+    }
+    .ded-sec-lbl::after{
+      content:'';
+      flex:1;
+      height:1px;
+      background:var(--border)
+    }
+    .check-grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fill,minmax(165px,1fr));
+      gap:0.55rem
+    }
+    .check-card{
+      border:1px solid var(--border);
+      border-radius:16px;
+      padding:0.65rem 0.85rem;
+      cursor:pointer;
+      transition:all .2s;
+      user-select:none;
+      display:flex;
+      align-items:flex-start;
+      gap:0.5rem;
+      background:var(--card)
+    }
+    .check-card:hover{border-color:var(--border2);background:var(--acc-p)}
+    .check-card.on{border-color:var(--acc);background:var(--acc-p)}
+    .cb-box{
+      width:17px;
+      height:17px;
+      min-width:17px;
+      border:1.5px solid var(--border2);
+      border-radius:6px;
+      margin-top:1px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      background:var(--card);
+      font-size:10px;
+      color:transparent;
+      transition:all .2s
+    }
+    .check-card.on .cb-box{
+      background:var(--acc);
+      border-color:var(--acc);
+      color:#fff
+    }
+    .cb-lbl{
+      font-size:0.78rem;
+      font-weight:500;
+      line-height:1.35;
+      color:var(--text)
+    }
+    .cb-amt{
+      font-size:0.64rem;
+      color:var(--text3);
+      margin-top:0.1rem
+    }
+    .check-card.on .cb-amt{color:var(--acc)}
 
-/* CALC BTN */
-.calc-btn{width:100%;background:var(--acc);color:#fff;border:none;border-radius:6px;padding:.7rem;font-family:inherit;font-size:.85rem;font-weight:600;cursor:pointer;transition:opacity .15s;margin-top:.5rem;letter-spacing:.1px}
-.calc-btn:hover{opacity:.9}
-.calc-btn:active{opacity:.8}
+    .sub-panel{
+      margin-top:0.55rem;
+      border-radius:14px;
+      padding:0.85rem 1rem;
+      font-size:0.73rem;
+      display:none;
+      background:var(--bg);
+      border:1px solid var(--border)
+    }
+    .sub-panel.open{display:block}
 
-/* RESULT */
-#result{display:none}
-.res-hdr{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.4rem;margin-bottom:.8rem}
-.res-tag{border:1px solid var(--border);border-radius:4px;font-size:.58rem;font-weight:700;padding:.2rem .6rem;letter-spacing:.8px;color:var(--text2);text-transform:uppercase}
-.metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:.45rem;margin-bottom:.8rem}
-@media(max-width:500px){.metrics{grid-template-columns:1fr 1fr}}
-.metric{background:var(--bg);border-radius:6px;padding:.6rem .75rem;border:1px solid var(--border)}
-.metric.hl{background:var(--dark);border-color:transparent}
-.metric.hl .ml{color:#6b7280}.metric.hl .mv{color:#fff}.metric.hl .ms{color:#6b7280}
-.ml{font-size:.58rem;color:var(--text3);font-weight:600;text-transform:uppercase;letter-spacing:.4px;margin-bottom:.2rem}
-.mv{font-size:.85rem;font-weight:700;color:var(--text);line-height:1.2}
-.ms{font-size:.58rem;color:var(--text3);margin-top:.12rem}
-.bbar{display:flex;height:4px;border-radius:2px;overflow:hidden;margin-bottom:.4rem}
-.bt{background:var(--acc)}.bd{background:#d1d5db}.bn{background:#e5e7eb}
-.blegend{display:flex;gap:.8rem;flex-wrap:wrap;font-size:.6rem;color:var(--text3)}
-.blegend span{display:flex;align-items:center;gap:.25rem}
-.dot{width:6px;height:6px;border-radius:1px}
-.tax-table{width:100%;border-collapse:collapse;font-size:.75rem;margin-top:.6rem}
-.tax-table th{background:var(--bg);padding:.45rem .65rem;text-align:left;font-size:.58rem;font-weight:600;text-transform:uppercase;letter-spacing:.4px;color:var(--text3);border-bottom:1px solid var(--border)}
-.tax-table td{padding:.45rem .65rem;border-bottom:1px solid var(--border);color:var(--text)}
-.tax-table tr.ab td{background:var(--acc-p);color:var(--acc);font-weight:600}
-.tax-table tr.tot td{border-bottom:none;font-weight:700;background:var(--bg)}
-.bb{display:inline-flex;width:16px;height:16px;border-radius:50%;background:var(--border);color:var(--text2);font-size:.55rem;font-weight:700;align-items:center;justify-content:center}
-.ab .bb{background:var(--acc);color:#fff}
-.ded-list{display:flex;flex-direction:column}
-.dr{display:flex;justify-content:space-between;align-items:flex-start;font-size:.73rem;padding:.35rem 0;border-bottom:1px solid var(--border);gap:.8rem}
-.dr:last-child{border-bottom:none}
-.dn{color:var(--text2);flex:1}.dv{font-weight:600;white-space:nowrap;color:var(--text)}
-.dr.dtot{padding-top:.45rem}.dr.dtot .dn,.dr.dtot .dv{color:var(--acc);font-weight:700}
-.note{border:1px solid var(--border);border-radius:6px;padding:.6rem .8rem;font-size:.65rem;color:var(--text2);line-height:1.7;margin-top:.7rem;background:var(--bg)}
-.cmp-btn{background:none;border:1px solid var(--border);border-radius:5px;padding:.35rem .75rem;font-family:inherit;font-size:.7rem;cursor:pointer;color:var(--text2);font-weight:500;transition:all .12s;margin-top:.7rem}
-.cmp-btn:hover{border-color:var(--border2);color:var(--text)}
-#cmp-sec{display:none;margin-top:.6rem}
-.cmp-grid{display:grid;grid-template-columns:1fr 1fr;gap:.6rem}
-@media(max-width:480px){.cmp-grid{grid-template-columns:1fr}}
-.cmp-card{border:1px solid var(--border);border-radius:6px;padding:.65rem .8rem}
-.cmp-card h4{font-size:.6rem;font-weight:700;text-transform:uppercase;letter-spacing:.8px;margin-bottom:.5rem;color:var(--text2)}
-.cmp-card.y25 h4{color:var(--text2)}.cmp-card.y26 h4{color:var(--text2)}
-.cr{display:flex;justify-content:space-between;font-size:.7rem;padding:.22rem 0;border-bottom:1px solid var(--border);color:var(--text2)}
-.cr:last-child{border-bottom:none;font-weight:600;color:var(--text)}
-footer{text-align:center;padding:1.2rem 1rem;font-size:.62rem;color:var(--text3);line-height:1.8}
-footer a{color:var(--text2);font-weight:500}
+    /* CALC BUTTON – Vercel primary */
+    .calc-btn{
+      width:100%;
+      background:var(--acc);
+      color:#fff;
+      border:none;
+      border-radius:16px;
+      padding:0.9rem;
+      font-family:inherit;
+      font-size:0.95rem;
+      font-weight:600;
+      cursor:pointer;
+      transition:all .2s;
+      margin-top:0.6rem;
+      letter-spacing:0.3px;
+      box-shadow:0 10px 15px -3px rgb(2 132 200 / 0.3)
+    }
+    .calc-btn:hover{
+      transform:translateY(-1px);
+      box-shadow:0 20px 25px -5px rgb(2 132 200 / 0.3)
+    }
+    .calc-btn:active{transform:scale(0.98)}
+
+    /* RESULT */
+    #result{display:none}
+    .res-hdr{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      flex-wrap:wrap;
+      gap:0.5rem;
+      margin-bottom:0.9rem
+    }
+    .res-tag{
+      border:1px solid var(--border);
+      border-radius:9999px;
+      font-size:0.6rem;
+      font-weight:700;
+      padding:0.25rem 0.85rem;
+      letter-spacing:0.8px;
+      color:var(--text2);
+      text-transform:uppercase;
+      background:var(--card)
+    }
+    .metrics{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:0.55rem;
+      margin-bottom:1rem
+    }
+    @media(max-width:520px){.metrics{grid-template-columns:1fr 1fr}}
+    .metric{
+      background:var(--bg);
+      border-radius:16px;
+      padding:0.75rem 1rem;
+      border:1px solid var(--border)
+    }
+    .metric.hl{
+      background:var(--acc-p);
+      border-color:var(--acc)
+    }
+    .metric.hl .ml{color:var(--text2)}
+    .metric.hl .mv{color:var(--acc)}
+    .metric.hl .ms{color:var(--text3)}
+    .ml{
+      font-size:0.6rem;
+      color:var(--text3);
+      font-weight:600;
+      text-transform:uppercase;
+      letter-spacing:0.5px;
+      margin-bottom:0.25rem
+    }
+    .mv{
+      font-size:1.05rem;
+      font-weight:700;
+      color:var(--text);
+      line-height:1.2
+    }
+    .ms{
+      font-size:0.62rem;
+      color:var(--text3);
+      margin-top:0.2rem
+    }
+
+    .bbar{
+      display:flex;
+      height:6px;
+      border-radius:9999px;
+      overflow:hidden;
+      margin-bottom:0.75rem
+    }
+    .bt{background:var(--acc)}
+    .bd{background:#e2e8f0}
+    .bn{background:#f1f5f9}
+
+    .blegend{
+      display:flex;
+      gap:1rem;
+      flex-wrap:wrap;
+      font-size:0.65rem;
+      color:var(--text3)
+    }
+    .blegend span{
+      display:flex;
+      align-items:center;
+      gap:0.3rem
+    }
+    .dot{
+      width:7px;
+      height:7px;
+      border-radius:2px
+    }
+
+    .tax-table{
+      width:100%;
+      border-collapse:collapse;
+      font-size:0.78rem;
+      margin-top:0.75rem
+    }
+    .tax-table th{
+      background:var(--bg);
+      padding:0.55rem 0.85rem;
+      text-align:left;
+      font-size:0.6rem;
+      font-weight:600;
+      text-transform:uppercase;
+      letter-spacing:0.5px;
+      color:var(--text3);
+      border-bottom:1px solid var(--border)
+    }
+    .tax-table td{
+      padding:0.55rem 0.85rem;
+      border-bottom:1px solid var(--border);
+      color:var(--text)
+    }
+    .tax-table tr.ab td{
+      background:var(--acc-p);
+      color:var(--acc);
+      font-weight:600
+    }
+    .tax-table tr.tot td{
+      border-bottom:none;
+      font-weight:700;
+      background:var(--bg)
+    }
+
+    .ded-list{display:flex;flex-direction:column}
+    .dr{
+      display:flex;
+      justify-content:space-between;
+      align-items:flex-start;
+      font-size:0.78rem;
+      padding:0.45rem 0;
+      border-bottom:1px solid var(--border);
+      gap:1rem
+    }
+    .dr:last-child{border-bottom:none}
+    .dn{color:var(--text2);flex:1}
+    .dv{font-weight:600;white-space:nowrap;color:var(--text)}
+    .dr.dtot{padding-top:0.55rem}
+    .dr.dtot .dn,.dr.dtot .dv{color:var(--acc);font-weight:700}
+
+    .note{
+      border:1px solid var(--border);
+      border-radius:16px;
+      padding:0.85rem 1.1rem;
+      font-size:0.68rem;
+      color:var(--text2);
+      line-height:1.6;
+      margin-top:1rem;
+      background:var(--bg)
+    }
+
+    .cmp-btn{
+      background:none;
+      border:1px solid var(--border);
+      border-radius:9999px;
+      padding:0.45rem 1.1rem;
+      font-family:inherit;
+      font-size:0.8rem;
+      cursor:pointer;
+      color:var(--text2);
+      font-weight:500;
+      transition:all .2s
+    }
+    .cmp-btn:hover{
+      border-color:var(--acc);
+      color:var(--acc)
+    }
+
+    #cmp-sec{display:none;margin-top:0.75rem}
+    .cmp-grid{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:0.75rem
+    }
+    @media(max-width:480px){.cmp-grid{grid-template-columns:1fr}}
+    .cmp-card{
+      border:1px solid var(--border);
+      border-radius:16px;
+      padding:1rem 1.15rem
+    }
+    .cmp-card h4{
+      font-size:0.65rem;
+      font-weight:700;
+      text-transform:uppercase;
+      letter-spacing:1px;
+      margin-bottom:0.65rem;
+      color:var(--text2)
+    }
+    .cr{
+      display:flex;
+      justify-content:space-between;
+      font-size:0.75rem;
+      padding:0.35rem 0;
+      border-bottom:1px solid var(--border);
+      color:var(--text2)
+    }
+    .cr:last-child{border-bottom:none;font-weight:600;color:var(--text)}
+
+    footer{
+      text-align:center;
+      padding:2rem 1rem 1.5rem;
+      font-size:0.65rem;
+      color:var(--text3);
+      line-height:1.7
+    }
+    footer a{color:var(--text2);font-weight:500;text-decoration:none}
+    footer a:hover{text-decoration:underline}
+
+    /* Small improvements for compactness */
+    .info-box{
+      border-left:3px solid var(--acc);
+      padding:0.75rem 1rem;
+      font-size:0.73rem;
+      color:var(--text2);
+      background:var(--acc-p);
+      border-radius:0 12px 12px 0;
+      margin-bottom:1rem
+    }
+    .bhxh-auto{
+      border-left:3px solid #10b981;
+      background:var(--bg);
+      border-radius:0 12px 12px 0;
+      padding:0.65rem 1rem;
+      font-size:0.7rem;
+      color:var(--text2);
+      margin-top:0.5rem
+    }
 </style>
 </head>
 <body>
 
 <header>
-  <h1>Tính Thuế Thu Nhập Cá Nhân 🇻🇳</h1>
-  <p>Tách lương BH / KPI / Phụ cấp • Đầy đủ giảm trừ • 2025 & 2026</p>
+  <h1>Tính Thuế TNCN Việt Nam 🇻🇳</h1>
+  <p>Thuế lương + KPI + phụ cấp • Giảm trừ đầy đủ • 2025 &amp; 2026</p>
   <div class="badges">
-    <span>2025 · 7 bậc</span>
-    <span>2026 · 5 bậc</span>
+    <span>2025 • 7 bậc</span>
+    <span>2026 • 5 bậc (mới)</span>
   </div>
 </header>
 
 <main>
 
-<!-- BƯỚC 1 -->
-<div class="card">
-  <div class="card-title">Bước 1 — Chọn kỳ tính thuế</div>
-  <div class="year-selector">
-    <div class="year-btn active" id="btn-2025" onclick="selYear(2025)">
-      <div class="yr">2025</div>
-      <div class="yr-sub">7 bậc • Bậc 35% từ 80 triệu/tháng</div>
-      <div class="yr-sub">Giảm trừ bản thân: 11 tr • Người phụ thuộc: 4,4 tr</div>
-    </div>
-    <div class="year-btn" id="btn-2026" onclick="selYear(2026)">
-      <div class="yr">2026</div>
-      <div class="yr-sub">5 bậc • Bậc 35% từ 100 triệu/tháng</div>
-      <div class="yr-sub">Giảm trừ bản thân: 15,5 tr • Người phụ thuộc: 6,2 tr</div>
+  <!-- BƯỚC 1 -->
+  <div class="card">
+    <div class="card-title">1. Chọn năm tính thuế</div>
+    <div class="year-selector">
+      <div class="year-btn active" id="btn-2025" onclick="selYear(2025)">
+        <div class="yr">2025</div>
+        <div class="yr-sub">7 bậc • 35% từ 80 triệu/tháng</div>
+        <div class="yr-sub">Giảm trừ: 11 triệu bản thân • 4,4 triệu/người phụ thuộc</div>
+      </div>
+      <div class="year-btn" id="btn-2026" onclick="selYear(2026)">
+        <div class="yr">2026</div>
+        <div class="yr-sub">5 bậc • 35% từ 100 triệu/tháng</div>
+        <div class="yr-sub">Giảm trừ: 15,5 triệu bản thân • 6,2 triệu/người phụ thuộc</div>
+      </div>
     </div>
   </div>
-</div>
 
-<!-- BƯỚC 2 -->
-<div class="card">
-  <div class="card-title">Bước 2 — Cơ cấu thu nhập / tháng</div>
-
-  <!-- MODE DETAIL -->
-  <div id="panel-detail">
-    <div class="info-box">
-      BHXH/BHYT/BHTN chỉ tính trên <strong>lương ghi trong hợp đồng</strong>, không tính trên KPI hay phụ cấp linh hoạt.
-    </div>
-    <div class="inc-grid">
-      <div class="inc-box bh-box">
-        <div class="inc-tag"><span class="inc-dot"></span>Lương đóng BH</div>
-        <div class="money-wrap">
-          <input class="money-input" id="inc-bh" type="text" inputmode="numeric" placeholder="30.000.000" autocomplete="off" oninput="updTotal()">
-          <span class="sfx">đ</span>
+  <!-- BƯỚC 2 -->
+  <div class="card">
+    <div class="card-title">2. Thu nhập hàng tháng</div>
+    <div id="panel-detail">
+      <div class="info-box">
+        BHXH/BHYT/BHTN chỉ tính trên <strong>lương hợp đồng</strong>. KPI &amp; phụ cấp không đóng BH.
+      </div>
+      <div class="inc-grid">
+        <div class="inc-box bh-box">
+          <div class="inc-tag"><span class="inc-dot"></span>Lương đóng BH</div>
+          <div class="money-wrap">
+            <input class="money-input" id="inc-bh" type="text" inputmode="numeric" placeholder="30.000.000" autocomplete="off" oninput="updTotal()">
+            <span class="sfx">đ</span>
+          </div>
+          <div class="pd" id="pd-bh"></div>
         </div>
-        <div class="pd" id="pd-bh"></div>
-        <div class="hint">Lương HĐLĐ — BHXH tính từ đây</div>
-      </div>
-      <div class="inc-box kpi-box">
-        <div class="inc-tag"><span class="inc-dot"></span>KPI / Thưởng</div>
-        <div class="money-wrap">
-          <input class="money-input" id="inc-kpi" type="text" inputmode="numeric" placeholder="15.000.000" autocomplete="off" oninput="updTotal()">
-          <span class="sfx">đ</span>
+        <div class="inc-box kpi-box">
+          <div class="inc-tag"><span class="inc-dot"></span>KPI / Thưởng</div>
+          <div class="money-wrap">
+            <input class="money-input" id="inc-kpi" type="text" inputmode="numeric" placeholder="15.000.000" autocomplete="off" oninput="updTotal()">
+            <span class="sfx">đ</span>
+          </div>
+          <div class="pd" id="pd-kpi"></div>
         </div>
-        <div class="pd" id="pd-kpi"></div>
-        <div class="hint">Chịu thuế, không tính BHXH</div>
-      </div>
-      <div class="inc-box phu-box">
-        <div class="inc-tag"><span class="inc-dot"></span>Phụ cấp miễn thuế</div>
-        <div class="money-wrap">
-          <input class="money-input" id="inc-phu" type="text" inputmode="numeric" placeholder="5.000.000" autocomplete="off" oninput="updTotal()">
-          <span class="sfx">đ</span>
+        <div class="inc-box phu-box">
+          <div class="inc-tag"><span class="inc-dot"></span>Phụ cấp miễn thuế</div>
+          <div class="money-wrap">
+            <input class="money-input" id="inc-phu" type="text" inputmode="numeric" placeholder="5.000.000" autocomplete="off" oninput="updTotal()">
+            <span class="sfx">đ</span>
+          </div>
+          <div class="pd" id="pd-phu"></div>
         </div>
-        <div class="pd" id="pd-phu"></div>
-        <div class="hint">Tiền ăn, xăng, điện thoại...</div>
       </div>
-    </div>
-    <div class="total-row">
-      <div class="total-col">
-        <span class="total-lbl">Tổng thu nhập / tháng</span>
-        <span class="total-val" id="total-display">—</span>
+      <div class="total-row">
+        <div class="total-col">
+          <span class="total-lbl">Tổng thu nhập</span>
+          <span class="total-val" id="total-display">—</span>
+        </div>
+        <div class="total-col">
+          <span class="total-lbl">Thu nhập chịu thuế</span>
+          <span class="total-val acc" id="total-taxable">—</span>
+        </div>
       </div>
-      <div class="total-col">
-        <span class="total-lbl">Thu nhập chịu thuế</span>
-        <span class="total-val acc" id="total-taxable">—</span>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- BƯỚC 3 -->
-<div class="card">
-  <div class="card-title">Bước 3 — Các khoản giảm trừ</div>
-
-  <!-- A. Giảm trừ gia cảnh -->
-  <div class="ded-sec-lbl">A. Giảm trừ gia cảnh</div>
-  <div class="check-grid">
-    <div class="check-card on" id="cc-banthan" onclick="tog('banthan')">
-      <div class="cb-box">✓</div>
-      <div><div class="cb-lbl">Bản thân người nộp thuế</div><div class="cb-amt" id="amt-bt">11.000.000 đ/tháng</div></div>
-    </div>
-    <div class="check-card" id="cc-phuthuoc" onclick="tog('phuthuoc')">
-      <div class="cb-box">✓</div>
-      <div><div class="cb-lbl">Người phụ thuộc (con, vợ/chồng, cha mẹ...)</div><div class="cb-amt" id="amt-pt">4.400.000 đ/người/tháng</div></div>
-    </div>
-  </div>
-  <div class="sub-panel sp-dep" id="sub-phuthuoc">
-    <div class="hint" style="margin-bottom:.5rem">Con dưới 18 tuổi, con đang học ĐH/CĐ không có thu nhập, vợ/chồng không có thu nhập, cha mẹ già không có thu nhập hoặc thu nhập &lt; 1 triệu/tháng.</div>
-    <div class="row-inline">
-      <span style="font-size:.83rem;font-weight:500">Số người phụ thuộc:</span>
-      <input type="number" class="small-num" id="dep-count" value="1" min="1" max="20" oninput="updDepHint()">
-      <span class="dep-hint" id="dep-hint"></span>
     </div>
   </div>
 
-  <!-- B. Bảo hiểm -->
-  <div class="ded-sec-lbl">B. Bảo hiểm bắt buộc (BHXH + BHYT + BHTN)</div>
-  <div class="check-grid">
-    <div class="check-card" id="cc-bhxh" onclick="tog('bhxh')">
-      <div class="cb-box">✓</div>
-      <div><div class="cb-lbl">Đóng BHXH + BHYT + BHTN</div><div class="cb-amt" id="bhxh-lbl">Tự tính = 10,5% lương đóng BH</div></div>
+  <!-- BƯỚC 3 -->
+  <div class="card">
+    <div class="card-title">3. Giảm trừ</div>
+
+    <!-- Giảm trừ gia cảnh -->
+    <div class="ded-sec-lbl">Giảm trừ gia cảnh</div>
+    <div class="check-grid">
+      <div class="check-card on" id="cc-banthan" onclick="tog('banthan')">
+        <div class="cb-box">✓</div>
+        <div><div class="cb-lbl">Bản thân</div><div class="cb-amt" id="amt-bt">11.000.000 đ/tháng</div></div>
+      </div>
+      <div class="check-card" id="cc-phuthuoc" onclick="tog('phuthuoc')">
+        <div class="cb-box">✓</div>
+        <div><div class="cb-lbl">Người phụ thuộc</div><div class="cb-amt" id="amt-pt">4.400.000 đ/người/tháng</div></div>
+      </div>
     </div>
-    <div class="check-card" id="cc-bhnn" onclick="tog('bhnn')">
-      <div class="cb-box">✓</div>
-      <div><div class="cb-lbl">BH trách nhiệm nghề nghiệp bắt buộc</div><div class="cb-amt">Nhập số tiền thực tế</div></div>
+    <div class="sub-panel sp-dep" id="sub-phuthuoc">
+      <div class="row-inline" style="display:flex;align-items:center;gap:0.75rem;flex-wrap:wrap">
+        <span style="font-weight:500">Số người phụ thuộc:</span>
+        <input type="number" class="small-num" id="dep-count" value="1" min="0" max="20" oninput="updDepHint()" style="width:64px">
+        <span class="dep-hint" id="dep-hint" style="color:var(--acc);font-weight:600"></span>
+      </div>
     </div>
-  </div>
-  <!-- BHXH auto info -->
-  <div class="bhxh-auto" id="bhxh-auto-info"></div>
-  <div class="sub-panel sp-char" id="sub-bhnn">
-    <div class="field">
-      <div class="field-label">Phí BH nghề nghiệp bắt buộc / tháng</div>
-      <div class="money-wrap" style="max-width:280px;margin-top:.3rem">
+
+    <!-- Bảo hiểm -->
+    <div class="ded-sec-lbl">Bảo hiểm bắt buộc</div>
+    <div class="check-grid">
+      <div class="check-card" id="cc-bhxh" onclick="tog('bhxh')">
+        <div class="cb-box">✓</div>
+        <div><div class="cb-lbl">BHXH + BHYT + BHTN</div><div class="cb-amt" id="bhxh-lbl">Tự động 10,5%</div></div>
+      </div>
+      <div class="check-card" id="cc-bhnn" onclick="tog('bhnn')">
+        <div class="cb-box">✓</div>
+        <div><div class="cb-lbl">BH trách nhiệm nghề nghiệp</div><div class="cb-amt">Nhập thực tế</div></div>
+      </div>
+    </div>
+    <div class="bhxh-auto" id="bhxh-auto-info"></div>
+    <div class="sub-panel sp-char" id="sub-bhnn">
+      <div class="money-wrap" style="max-width:100%">
         <input class="money-input" id="bhnn-amt" type="text" inputmode="numeric" placeholder="500.000" autocomplete="off">
-        <span class="sfx">VNĐ</span>
+        <span class="sfx">VNĐ/tháng</span>
       </div>
       <div class="pd" id="pd-bhnn"></div>
     </div>
-  </div>
 
-  <!-- C. Hưu trí tự nguyện -->
-  <div class="ded-sec-lbl">C. Quỹ hưu trí tự nguyện / BH hưu trí tự nguyện</div>
-  <div class="check-grid">
-    <div class="check-card" id="cc-huu" onclick="tog('huu')">
-      <div class="cb-box">✓</div>
-      <div><div class="cb-lbl">Đóng quỹ hưu trí tự nguyện</div><div class="cb-amt">Tối đa 1.000.000 đ/tháng (12 tr/năm)</div></div>
+    <!-- Hưu trí & Từ thiện -->
+    <div class="ded-sec-lbl">Hưu trí tự nguyện &amp; Từ thiện</div>
+    <div class="check-grid">
+      <div class="check-card" id="cc-huu" onclick="tog('huu')">
+        <div class="cb-box">✓</div>
+        <div><div class="cb-lbl">Quỹ hưu trí tự nguyện</div><div class="cb-amt">Tối đa 1 triệu/tháng</div></div>
+      </div>
+      <div class="check-card" id="cc-tuthien" onclick="tog('tuthien')">
+        <div class="cb-box">✓</div>
+        <div><div class="cb-lbl">Từ thiện / Khuyến học</div><div class="cb-amt">Cả năm</div></div>
+      </div>
     </div>
-  </div>
-  <div class="sub-panel sp-huu" id="sub-huu">
-    <div class="field">
-      <div class="field-label">Số tiền đóng hưu trí tự nguyện / tháng</div>
-      <div class="money-wrap" style="max-width:280px;margin-top:.3rem">
+    <div class="sub-panel sp-huu" id="sub-huu">
+      <div class="money-wrap">
         <input class="money-input" id="huu-amt" type="text" inputmode="numeric" placeholder="1.000.000" autocomplete="off">
         <span class="sfx">VNĐ/tháng</span>
       </div>
       <div class="pd" id="pd-huu"></div>
-      <div class="hint">Tối đa được giảm trừ 1.000.000 đ/tháng (cả phần công ty đóng thay)</div>
     </div>
-  </div>
-
-  <!-- D. Từ thiện / Khuyến học -->
-  <div class="ded-sec-lbl">D. Đóng góp từ thiện, nhân đạo, khuyến học</div>
-  <div class="check-grid">
-    <div class="check-card" id="cc-tuthien" onclick="tog('tuthien')">
-      <div class="cb-box">✓</div>
-      <div><div class="cb-lbl">Từ thiện / Nhân đạo</div><div class="cb-amt">Cần biên lai tổ chức được Nhà nước công nhận</div></div>
-    </div>
-    <div class="check-card" id="cc-khoc" onclick="tog('khoc')">
-      <div class="cb-box">✓</div>
-      <div><div class="cb-lbl">Quỹ khuyến học</div><div class="cb-amt">Cần biên lai tổ chức được Nhà nước công nhận</div></div>
-    </div>
-  </div>
-  <div class="sub-panel sp-char" id="sub-tuthien">
-    <div class="field">
-      <div class="field-label">Số tiền từ thiện / nhân đạo cả năm</div>
-      <div class="money-wrap" style="max-width:280px;margin-top:.3rem">
+    <div class="sub-panel sp-char" id="sub-tuthien">
+      <div class="money-wrap">
         <input class="money-input" id="tuthien-amt" type="text" inputmode="numeric" placeholder="10.000.000" autocomplete="off">
         <span class="sfx">VNĐ/năm</span>
       </div>
       <div class="pd" id="pd-tt"></div>
     </div>
   </div>
-  <div class="sub-panel sp-char" id="sub-khoc">
-    <div class="field">
-      <div class="field-label">Số tiền đóng quỹ khuyến học cả năm</div>
-      <div class="money-wrap" style="max-width:280px;margin-top:.3rem">
-        <input class="money-input" id="khoc-amt" type="text" inputmode="numeric" placeholder="5.000.000" autocomplete="off">
-        <span class="sfx">VNĐ/năm</span>
-      </div>
-      <div class="pd" id="pd-kh"></div>
-    </div>
-  </div>
 
-  <div class="note" style="margin-top:1rem">
-    📋 <strong>Lưu ý chứng từ:</strong> Bảo hiểm cần xác nhận đơn vị trả lương. Từ thiện/khuyến học cần biên lai hợp lệ. Phụ cấp miễn thuế phải được quy định rõ trong quy chế lương của công ty.
-  </div>
-</div>
+  <button class="calc-btn" onclick="calc()">⚡ Tính thuế ngay</button>
 
-<button class="calc-btn" onclick="calc()">⚡ Tính Thuế Ngay</button>
-
-<!-- KẾT QUẢ -->
-<div id="result">
-  <div class="card" style="margin-top:1.2rem">
-    <div class="res-hdr">
-      <div class="card-title" style="margin-bottom:0">Kết quả tính thuế</div>
-      <div class="res-tag" id="res-tag">NĂM 2025</div>
-    </div>
-    <div class="metrics" id="metrics"></div>
-    <div class="bbar" id="bbar"></div>
-    <div class="blegend">
-      <span><div class="dot" style="background:var(--red)"></div>Tiền thuế</span>
-      <span><div class="dot" style="background:var(--gold)"></div>Giảm trừ</span>
-      <span><div class="dot" style="background:#dfe6e9"></div>Thực nhận</span>
-    </div>
-  </div>
-
-  <div class="card">
-    <div class="card-title">Chi tiết cơ cấu thu nhập & giảm trừ</div>
-    <div class="ded-list" id="ded-list"></div>
-  </div>
-
-  <div class="card">
-    <div class="card-title">Bảng tính thuế lũy tiến từng bậc</div>
-    <p style="font-size:.78rem;color:var(--text2);margin-bottom:.5rem">⚠️ Chỉ phần thu nhập <strong>nằm trong từng bậc</strong> mới chịu thuế suất đó — không phải toàn bộ.</p>
-    <div style="overflow-x:auto"><table class="tax-table" id="tax-table"></table></div>
-  </div>
-
-  <div style="text-align:center">
-    <button class="cmp-btn" onclick="togCmp()">⇄ So sánh thuế 2025 vs 2026</button>
-  </div>
-  <div id="cmp-sec">
+  <!-- KẾT QUẢ -->
+  <div id="result">
     <div class="card">
-      <div class="card-title">So sánh thuế năm 2025 và 2026</div>
-      <div class="cmp-grid" id="cmp-grid"></div>
-      <div class="note" style="margin-top:1rem">📌 Luật 2026 có lợi hơn: giảm trừ tăng ~40%, ngưỡng bậc 35% tăng từ 80 triệu lên 100 triệu/tháng.</div>
+      <div class="res-hdr">
+        <div class="card-title" style="margin-bottom:0">Kết quả</div>
+        <div class="res-tag" id="res-tag">NĂM 2025</div>
+      </div>
+      <div class="metrics" id="metrics"></div>
+      <div class="bbar" id="bbar"></div>
+      <div class="blegend">
+        <span><div class="dot" style="background:#0284c8"></div>Thuế</span>
+        <span><div class="dot" style="background:#e2e8f0"></div>Giảm trừ</span>
+        <span><div class="dot" style="background:#f1f5f9"></div>Thực nhận</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Chi tiết thu nhập &amp; giảm trừ</div>
+      <div class="ded-list" id="ded-list"></div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Bảng thuế lũy tiến</div>
+      <p style="font-size:0.78rem;color:var(--text2);margin-bottom:0.6rem">Chỉ phần thu nhập nằm trong bậc mới chịu mức thuế đó.</p>
+      <div style="overflow-x:auto"><table class="tax-table" id="tax-table"></table></div>
+    </div>
+
+    <div style="text-align:center">
+      <button class="cmp-btn" onclick="togCmp()">⇄ So sánh 2025 vs 2026</button>
+    </div>
+
+    <div id="cmp-sec">
+      <div class="card">
+        <div class="card-title">So sánh thuế 2025 &amp; 2026</div>
+        <div class="cmp-grid" id="cmp-grid"></div>
+      </div>
+    </div>
+
+    <div class="note">
+      <strong>⚠️ Lưu ý:</strong> Công cụ chỉ mang tính tham khảo. Thuế thực tế phụ thuộc vào quyết toán cuối năm và quy chế công ty.<br><br>
+      <strong>Căn cứ:</strong> Luật Thuế TNCN 2007, Luật 109/2025/QH15 và Nghị quyết 110/2025.
     </div>
   </div>
-
-  <div class="note">
-    <strong>⚠️ Lưu ý:</strong> Công cụ này chỉ mang tính tham khảo. Số thuế thực tế phụ thuộc vào quy định cụ thể tại công ty, loại phụ cấp, quy chế lương, và quyết toán thuế cuối năm. Hãy tham khảo kế toán hoặc cơ quan thuế để có kết quả chính xác.<br><br>
-    📚 <strong>Căn cứ:</strong> Luật TNCN 2007, TT111/2013, NQ954/2020 (năm 2025), Luật 109/2025/QH15 + NQ110/2025 (năm 2026).
-  </div>
-</div>
 
 </main>
 
 <footer>
-  Tính thuế TNCN Việt Nam • Luật số 109/2025/QH15 • Nghị quyết 110/2025/UBTVQH15<br>
-  Tham khảo: <a href="https://thuvienphapluat.vn" target="_blank">thuvienphapluat.vn</a>
+  Tính thuế TNCN • Vercel-style • 2025 &amp; 2026<br>
+  Dữ liệu từ Luật Thuế TNCN hiện hành
 </footer>
 
 <script>
-// ===== TAX DATA =====
+// ===== TAX DATA (giữ nguyên logic cũ) =====
 const TAX={
   2025:{
     brackets:[{max:5e6,r:.05},{max:10e6,r:.10},{max:18e6,r:.15},{max:32e6,r:.20},{max:52e6,r:.25},{max:80e6,r:.30},{max:Infinity,r:.35}],
@@ -394,11 +790,11 @@ const TAX={
     self:15.5e6,dep:6.2e6,bhRate:.105,bhMax:46.8e6
   }
 };
-let yr=2025, mode='detail';
+let yr=2025;
 const cb={banthan:true,phuthuoc:false,bhxh:false,bhnn:false,huu:false,tuthien:false,khoc:false};
 const subMap={phuthuoc:'sub-phuthuoc',bhnn:'sub-bhnn',huu:'sub-huu',tuthien:'sub-tuthien',khoc:'sub-khoc'};
 
-// ===== MONEY HELPERS =====
+// ===== MONEY HELPERS (giữ nguyên) =====
 function parseMoney(s){const n=parseFloat((s||'').replace(/[^\d]/g,''));return isNaN(n)?0:n}
 function fmtN(n){return Math.round(n).toLocaleString('vi-VN')}
 function fmtV(n){return fmtN(n)+' đ'}
@@ -417,7 +813,7 @@ function setupMoney(id,pdId,onInputCb){
     let dc=0,np=this.value.length;
     for(let i=0;i<this.value.length;i++){if(/\d/.test(this.value[i]))dc++;if(dc===bc){np=i+1;break}}
     try{this.setSelectionRange(np,np)}catch(e){}
-    if(pd){const tr=num/1e6;pd.textContent=num?'= '+fmtP(tr,tr%1===0?0:3)+' triệu':''}
+    if(pd){const tr=num/1e6;pd.textContent=num?'≈ '+fmtP(tr,tr%1===0?0:2)+' triệu':''}
     if(onInputCb)onInputCb();
   });
   el.addEventListener('keydown',function(e){
@@ -443,11 +839,11 @@ function updLabels(){
 }
 function updDepHint(){
   if(!cb.phuthuoc)return;
-  const n=parseInt(document.getElementById('dep-count').value)||1;
-  document.getElementById('dep-hint').textContent='→ Giảm trừ: '+fmtV(TAX[yr].dep*n)+'/tháng';
+  const n=parseInt(document.getElementById('dep-count').value)||0;
+  document.getElementById('dep-hint').textContent=n?'→ '+fmtV(TAX[yr].dep*n)+'/tháng':'';
 }
 
-// ===== MODE =====
+// ===== INCOME & BH =====
 function updTotal(){
   const bh=parseMoney(document.getElementById('inc-bh').value);
   const kpi=parseMoney(document.getElementById('inc-kpi').value);
@@ -458,26 +854,23 @@ function updTotal(){
   document.getElementById('total-taxable').textContent=taxable?fmtV(taxable):'—';
   updBhxhInfo();
 }
-
 function getBhBase(){
   const bh=parseMoney(document.getElementById('inc-bh').value);
   return Math.min(bh,TAX[yr].bhMax);
 }
-
 function updBhxhInfo(){
   const el=document.getElementById('bhxh-auto-info');
-  if(!cb.bhxh){el.classList.remove('show');return}
+  if(!cb.bhxh){el.style.display='none';return}
   const base=getBhBase();
   const bh=base*TAX[yr].bhRate;
   const bhInput=parseMoney(document.getElementById('inc-bh').value);
-  let msg=`BHXH tự động: ${fmtV(base)} × 10,5% = <strong>${fmtV(bh)}/tháng</strong>`;
-  if(bhInput>TAX[yr].bhMax) msg+=` (đã giới hạn tối đa ${fmtV(TAX[yr].bhMax)})`;
-  msg+=`<br><span style="font-size:.72rem">BH tính trên lương hợp đồng ${fmtV(bhInput)}, không tính KPI/thưởng</span>`;
+  let msg=`BHXH tự động: ${fmtV(base)} × 10,5% = <strong>${fmtV(bh)}</strong>`;
+  if(bhInput>TAX[yr].bhMax) msg+=` <small>(giới hạn ${fmtV(TAX[yr].bhMax)})</small>`;
   el.innerHTML=msg;
-  el.classList.add('show');
+  el.style.display='block';
 }
 
-// ===== CHECKBOX =====
+// ===== TOGGLE =====
 function tog(key){
   cb[key]=!cb[key];
   const card=document.getElementById('cc-'+key);
@@ -488,7 +881,7 @@ function tog(key){
   if(key==='phuthuoc') updDepHint();
 }
 
-// ===== MAIN CALC =====
+// ===== MAIN CALC (giữ nguyên logic) =====
 function calcTax(monthly,y){
   const bs=TAX[y].brackets;
   let rem=monthly,total=0,rows=[],prev=0;
@@ -516,22 +909,15 @@ function calc(){
   if(!inc.total||inc.total<=0){alert('Vui lòng nhập thu nhập!');return}
   const d=TAX[yr];
 
-  // A. Gia cảnh
   const selfDed=cb.banthan?d.self:0;
-  const depCnt=cb.phuthuoc?(parseInt(document.getElementById('dep-count').value)||1):0;
+  const depCnt=cb.phuthuoc?(parseInt(document.getElementById('dep-count').value)||0):0;
   const depDed=depCnt*d.dep;
-
-  // B. BH
   const bhxh=cb.bhxh?inc.bhBase*d.bhRate:0;
   const bhnn=cb.bhnn?parseMoney(document.getElementById('bhnn-amt').value):0;
-
-  // C. Hưu trí
   const huuRaw=cb.huu?parseMoney(document.getElementById('huu-amt').value):0;
   const huu=Math.min(huuRaw,1e6);
-
-  // D. Từ thiện
   const tt=cb.tuthien?parseMoney(document.getElementById('tuthien-amt').value)/12:0;
-  const kh=cb.khoc?parseMoney(document.getElementById('khoc-amt').value)/12:0;
+  const kh=0;
 
   const totalDed=selfDed+depDed+bhxh+bhnn+huu+tt+kh;
   const taxableAfterDed=Math.max(0,inc.taxable-totalDed);
@@ -543,67 +929,58 @@ function calc(){
   document.getElementById('result').style.display='block';
   document.getElementById('res-tag').textContent='NĂM '+yr;
 
-  // Metrics
   document.getElementById('metrics').innerHTML=`
-    <div class="metric"><div class="ml">Thu nhập gộp/tháng</div><div class="mv">${fmtV(inc.total)}</div><div class="ms">${fmtV(inc.total*12)}/năm</div></div>
-    <div class="metric"><div class="ml">Thu nhập chịu thuế</div><div class="mv">${fmtV(inc.taxable)}</div><div class="ms">Không tính phụ cấp miễn thuế</div></div>
-    <div class="metric hl"><div class="ml">Tiền thuế phải đóng</div><div class="mv">${fmtV(tax)}/tháng</div><div class="ms">${fmtV(taxYear)}/năm • ${fmtP(effRate)}% thực tế</div></div>
-    <div class="metric"><div class="ml">Tổng giảm trừ</div><div class="mv">${fmtV(totalDed)}/tháng</div><div class="ms">${fmtV(totalDed*12)}/năm</div></div>
-    <div class="metric"><div class="ml">Thực nhận / tháng</div><div class="mv">${fmtV(netMonth)}</div><div class="ms">${fmtV(netMonth*12)}/năm</div></div>
-    <div class="metric"><div class="ml">Thuế suất thực tế</div><div class="mv">${fmtP(effRate)}%</div><div class="ms">trên tổng thu nhập</div></div>
+    <div class="metric"><div class="ml">TỔNG THU NHẬP</div><div class="mv">${fmtV(inc.total)}</div><div class="ms">${fmtV(inc.total*12)}/năm</div></div>
+    <div class="metric"><div class="ml">CHỊU THUẾ</div><div class="mv">${fmtV(inc.taxable)}</div><div class="ms">không tính phụ cấp</div></div>
+    <div class="metric hl"><div class="ml">THUẾ PHẢI NỘP</div><div class="mv">${fmtV(tax)}/tháng</div><div class="ms">${fmtV(taxYear)}/năm • ${fmtP(effRate)}%</div></div>
+    <div class="metric"><div class="ml">GIẢM TRỪ</div><div class="mv">${fmtV(totalDed)}</div><div class="ms">${fmtV(totalDed*12)}/năm</div></div>
+    <div class="metric"><div class="ml">THỰC NHẬN</div><div class="mv">${fmtV(netMonth)}</div><div class="ms">${fmtV(netMonth*12)}/năm</div></div>
+    <div class="metric"><div class="ml">THUẾ SUẤT THỰC</div><div class="mv">${fmtP(effRate)}%</div><div class="ms">trên tổng thu nhập</div></div>
   `;
 
-  // Bar
   const tp=Math.min(taxYear/(inc.total*12)*100,100);
   const dp=Math.min(totalDed*12/(inc.total*12)*100,100-tp);
   document.getElementById('bbar').innerHTML=`<div class="bt" style="width:${tp}%"></div><div class="bd" style="width:${dp}%"></div><div class="bn" style="width:${Math.max(0,100-tp-dp)}%"></div>`;
 
-  // Deduction detail
   let dh='';
   const dr=(lbl,val,sub)=>{
     if(val<=0)return;
-    dh+=`<div class="dr"><span class="dn">${lbl}${sub?`<br><small style="font-size:.68rem">${sub}</small>`:''}</span><span class="dv">${fmtV(val)}/tháng</span></div>`;
+    dh+=`<div class="dr"><span class="dn">${lbl}${sub?`<br><small>${sub}</small>`:''}</span><span class="dv">${fmtV(val)}/tháng</span></div>`;
   };
 
-  // Income breakdown
-  dh+=`<div class="dr" style="background:#f0f7ff;border-radius:6px;margin-bottom:.3rem;border-bottom:none;padding:.5rem .6rem"><span class="dn" style="color:#1e40af;font-weight:600">📊 Cơ cấu thu nhập</span></div>`;
-  const bh=parseMoney(document.getElementById('inc-bh').value);
-  const kpi=parseMoney(document.getElementById('inc-kpi').value);
-  const phu=parseMoney(document.getElementById('inc-phu').value);
-  if(bh) dh+=`<div class="dr"><span class="dn" style="color:#3b82f6">Lương đóng BH (hợp đồng)</span><span class="dv">${fmtV(bh)}/tháng</span></div>`;
-  if(kpi) dh+=`<div class="dr"><span class="dn" style="color:#f59e0b">KPI / Thưởng / Hoa hồng</span><span class="dv">${fmtV(kpi)}/tháng</span></div>`;
-  if(phu) dh+=`<div class="dr"><span class="dn" style="color:#10b981">Phụ cấp miễn thuế</span><span class="dv">${fmtV(phu)}/tháng <span style="font-size:.7rem;color:var(--text2)">(không tính thuế)</span></span></div>`;
-  dh+=`<div class="dr" style="border-bottom:2px solid var(--border);padding-bottom:.5rem;margin-bottom:.5rem"><span class="dn" style="font-weight:600">Thu nhập chịu thuế</span><span class="dv">${fmtV(inc.taxable)}/tháng</span></div>`;
+  dh+=`<div class="dr" style="background:#f0f9ff;border-radius:12px;margin-bottom:.4rem;border-bottom:none;padding:.6rem"><span class="dn" style="color:#0284c8;font-weight:600">📊 Thu nhập</span></div>`;
+  const bhVal=parseMoney(document.getElementById('inc-bh').value);
+  const kpiVal=parseMoney(document.getElementById('inc-kpi').value);
+  const phuVal=parseMoney(document.getElementById('inc-phu').value);
+  if(bhVal) dh+=`<div class="dr"><span class="dn">Lương đóng BH</span><span class="dv">${fmtV(bhVal)}</span></div>`;
+  if(kpiVal) dh+=`<div class="dr"><span class="dn">KPI / Thưởng</span><span class="dv">${fmtV(kpiVal)}</span></div>`;
+  if(phuVal) dh+=`<div class="dr"><span class="dn">Phụ cấp miễn thuế</span><span class="dv">${fmtV(phuVal)} <small>(không tính thuế)</small></span></div>`;
+  dh+=`<div class="dr" style="border-bottom:2px solid var(--border)"><span class="dn" style="font-weight:600">Thu nhập chịu thuế</span><span class="dv">${fmtV(inc.taxable)}</span></div>`;
 
-  dh+=`<div class="dr" style="background:#f7f8fc;border-radius:6px;margin-bottom:.3rem;border-bottom:none;padding:.5rem .6rem"><span class="dn" style="color:var(--red);font-weight:600">📉 Các khoản giảm trừ</span></div>`;
-  dr('Giảm trừ bản thân',selfDed);
-  if(depDed>0) dr(`Giảm trừ người phụ thuộc (${depCnt} người)`,depDed,`${depCnt} × ${fmtV(d.dep)}`);
-  if(bhxh>0) dr('BHXH + BHYT + BHTN (10,5%)',bhxh,`Tính trên lương đóng BH: ${fmtV(inc.bhBase)}${inc.bhBase<bh?` (giới hạn tối đa ${fmtV(TAX[yr].bhMax)})`:'`'}`);
+  dh+=`<div class="dr" style="background:#f8fafc;border-radius:12px;margin:0.5rem 0 .4rem;border-bottom:none;padding:.6rem"><span class="dn" style="color:#e11d48;font-weight:600">📉 Giảm trừ</span></div>`;
+  dr('Bản thân',selfDed);
+  if(depDed>0) dr(`Người phụ thuộc (${depCnt})`,depDed);
+  if(bhxh>0) dr('BHXH + BHYT + BHTN',bhxh);
   dr('BH trách nhiệm nghề nghiệp',bhnn);
-  if(huu>0) dr('Quỹ hưu trí tự nguyện',huu,huuRaw>1e6?'Đã giới hạn tối đa 1.000.000 đ/tháng':'');
-  if(tt>0) dr('Từ thiện/nhân đạo',tt,`${fmtV(tt*12)}/năm ÷ 12 tháng`);
-  if(kh>0) dr('Quỹ khuyến học',kh,`${fmtV(kh*12)}/năm ÷ 12 tháng`);
-  dh+=`<div class="dr dtot"><span class="dn">Tổng giảm trừ</span><span class="dv">${fmtV(totalDed)}/tháng = ${fmtV(totalDed*12)}/năm</span></div>`;
-  dh+=`<div class="dr"><span class="dn" style="font-weight:600">Thu nhập tính thuế (sau giảm trừ)</span><span class="dv" style="color:var(--red)">${fmtV(taxableAfterDed)}/tháng</span></div>`;
+  if(huu>0) dr('Hưu trí tự nguyện',huu);
+  if(tt>0) dr('Từ thiện / Khuyến học',tt);
+  dh+=`<div class="dr dtot"><span class="dn">Tổng giảm trừ</span><span class="dv">${fmtV(totalDed)}</span></div>`;
+  dh+=`<div class="dr"><span class="dn" style="font-weight:600">Thu nhập tính thuế</span><span class="dv" style="color:#e11d48">${fmtV(taxableAfterDed)}</span></div>`;
   document.getElementById('ded-list').innerHTML=dh;
 
-  // Tax table
-  let th=`<thead><tr><th>Bậc</th><th>Khoảng thu nhập tính thuế / tháng</th><th>Thuế suất</th><th>Phần chịu thuế</th><th>Tiền thuế</th></tr></thead><tbody>`;
-  let gt=0;
+  let th=`<thead><tr><th>Bậc</th><th>Khoảng thu nhập</th><th>Thuế suất</th><th>Phần chịu thuế</th><th>Thuế</th></tr></thead><tbody>`;
   for(const r of rows){
-    gt+=r.tax;
-    const rng=r.to===Infinity?'Trên '+fmtN(r.from)+' đ':fmtN(r.from)+' – '+fmtN(r.to)+' đ';
-    th+=`<tr class="ab"><td><span class="bb">${r.bac}</span></td><td>${rng}</td><td>${(r.r*100).toFixed(0)}%</td><td>${fmtV(r.taxable)}</td><td>${fmtV(r.tax)}</td></tr>`;
+    const rng=r.to===Infinity?'Trên '+fmtN(r.from):fmtN(r.from)+' – '+fmtN(r.to);
+    th+=`<tr class="ab"><td><strong>${r.bac}</strong></td><td>${rng}</td><td>${(r.r*100).toFixed(0)}%</td><td>${fmtV(r.taxable)}</td><td>${fmtV(r.tax)}</td></tr>`;
   }
-  th+=`<tr class="tot"><td colspan="3" style="text-align:right;padding-right:1rem">Tổng thuế / tháng</td><td></td><td>${fmtV(gt)}</td></tr></tbody>`;
+  th+=`<tr class="tot"><td colspan="4" style="text-align:right">TỔNG THUẾ / THÁNG</td><td>${fmtV(tax)}</td></tr></tbody>`;
   document.getElementById('tax-table').innerHTML=th;
 
-  setTimeout(()=>document.getElementById('result').scrollIntoView({behavior:'smooth',block:'start'}),100);
-  window._lc={inc,depCnt,huuRaw,bhnn:cb.bhnn,huu:cb.huu,tuthien:cb.tuthien,khoc:cb.khoc};
-  document.getElementById('cmp-sec').style.display='none';
+  setTimeout(()=>{document.getElementById('result').scrollIntoView({behavior:'smooth'})},100);
+  window._lc={inc,depCnt,huuRaw,bhnn:cb.bhnn,huu:cb.huu,tuthien:cb.tuthien};
 }
 
-// ===== COMPARE =====
+// ===== SO SÁNH =====
 function togCmp(){
   const s=document.getElementById('cmp-sec');
   if(s.style.display==='block'){s.style.display='none';return}
@@ -617,8 +994,7 @@ function togCmp(){
     const bn=lc.bhnn?parseMoney(document.getElementById('bhnn-amt').value):0;
     const hu=lc.huu?Math.min(lc.huuRaw,1e6):0;
     const tt=lc.tuthien?parseMoney(document.getElementById('tuthien-amt').value)/12:0;
-    const kh=lc.khoc?parseMoney(document.getElementById('khoc-amt').value)/12:0;
-    const totD=sd+dd+bx+bn+hu+tt+kh;
+    const totD=sd+dd+bx+bn+hu+tt;
     const taxable=Math.max(0,lc.inc.taxable-totD);
     const{total:tax}=calcTax(taxable,y);
     return{totD,tax,net:lc.inc.total-tax,eff:tax/lc.inc.total*100};
@@ -626,28 +1002,26 @@ function togCmp(){
 
   const r25=c4y(2025),r26=c4y(2026),diff=r25.tax-r26.tax;
   document.getElementById('cmp-grid').innerHTML=`
-    <div class="cmp-card y25">
-      <h4>📋 Năm 2025 (7 bậc)</h4>
-      <div class="cr"><span>Tổng giảm trừ/tháng</span><span>${fmtV(r25.totD)}</span></div>
-      <div class="cr"><span>Tiền thuế/tháng</span><span>${fmtV(r25.tax)}</span></div>
-      <div class="cr"><span>Tiền thuế/năm</span><span>${fmtV(r25.tax*12)}</span></div>
-      <div class="cr"><span>Thuế suất thực</span><span>${fmtP(r25.eff)}%</span></div>
+    <div class="cmp-card">
+      <h4>📋 2025 (7 bậc)</h4>
+      <div class="cr"><span>Giảm trừ/tháng</span><span>${fmtV(r25.totD)}</span></div>
+      <div class="cr"><span>Thuế/tháng</span><span>${fmtV(r25.tax)}</span></div>
       <div class="cr"><span>Thực nhận/tháng</span><span>${fmtV(r25.net)}</span></div>
+      <div class="cr"><span>Thuế suất thực</span><span>${fmtP(r25.eff)}%</span></div>
     </div>
-    <div class="cmp-card y26">
-      <h4>🆕 Năm 2026 (5 bậc)</h4>
-      <div class="cr"><span>Tổng giảm trừ/tháng</span><span>${fmtV(r26.totD)}</span></div>
-      <div class="cr"><span>Tiền thuế/tháng</span><span>${fmtV(r26.tax)}</span></div>
-      <div class="cr"><span>Tiền thuế/năm</span><span>${fmtV(r26.tax*12)}</span></div>
-      <div class="cr"><span>Thuế suất thực</span><span>${fmtP(r26.eff)}%</span></div>
+    <div class="cmp-card">
+      <h4>🆕 2026 (5 bậc)</h4>
+      <div class="cr"><span>Giảm trừ/tháng</span><span>${fmtV(r26.totD)}</span></div>
+      <div class="cr"><span>Thuế/tháng</span><span>${fmtV(r26.tax)}</span></div>
       <div class="cr"><span>Thực nhận/tháng</span><span>${fmtV(r26.net)}</span></div>
+      <div class="cr"><span>Thuế suất thực</span><span>${fmtP(r26.eff)}%</span></div>
     </div>
-    <div style="grid-column:1/-1;background:${diff>0?'#e8faf6':'#fdf0ef'};border-radius:10px;padding:1rem;text-align:center;font-weight:700;color:${diff>0?'#00695c':'var(--red)'};font-size:.93rem;">
-      ${diff>0?`✅ Luật 2026 giúp tiết kiệm ${fmtV(diff)}/tháng = ${fmtV(diff*12)}/năm`:diff<0?`⚠️ Luật 2026 tăng thuế ${fmtV(Math.abs(diff))}/tháng`:'Không thay đổi giữa 2 năm'}
+    <div style="grid-column:1/-1;background:${diff>0?'#ecfdf5':'#fef2f2'};border-radius:16px;padding:1rem;text-align:center;font-weight:700;color:${diff>0?'#10b981':'#e11d48'}">
+      ${diff>0?`✅ 2026 tiết kiệm ${fmtV(diff)}/tháng`:`⚠️ 2026 ${diff===0?'không thay đổi':`tăng ${fmtV(Math.abs(diff))}/tháng`}`}
     </div>
   `;
   s.style.display='block';
-  s.scrollIntoView({behavior:'smooth',block:'start'});
+  s.scrollIntoView({behavior:'smooth'});
 }
 
 // ===== INIT =====
@@ -657,7 +1031,6 @@ setupMoney('inc-phu','pd-phu',updTotal);
 setupMoney('bhnn-amt','pd-bhnn');
 setupMoney('huu-amt','pd-huu');
 setupMoney('tuthien-amt','pd-tt');
-setupMoney('khoc-amt','pd-kh');
 document.getElementById('dep-count').addEventListener('input',updDepHint);
 updLabels();
 </script>
